@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#101827">
-<title>Mon tableau de bord — Clamart</title>
+<title>Mon tableau de bord — Antony</title>
 <style>
 :root{--bg:#101827;--panel:#192538;--panel2:#1e2d43;--line:#304158;--txt:#f3f6fb;--muted:#a9b8ca;--accent:#8bd5ff;--gold:#f4cf83}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -29,12 +29,12 @@ footer{display:flex;justify-content:space-between;align-items:center;color:var(-
 <body>
 <div class="dashboard">
 <header>
- <div><div class="brand">Tableau de bord · Clamart</div><div style="color:var(--muted);font-size:13px;margin-top:7px">Météo · Actualités · Informations</div></div>
+ <div><div class="brand">Tableau de bord · Antony</div><div style="color:var(--muted);font-size:13px;margin-top:7px">Météo · Actualités · Informations</div></div>
  <div style="text-align:right"><div class="clock" id="clock">--:--</div><div class="date" id="date">Chargement…</div></div>
 </header>
 <main class="main">
 <section class="panel weather-panel">
- <h2>☀ Météo à Clamart</h2>
+ <h2>☀ Météo à Antony</h2>
  <div class="current"><div class="weather-icon" id="weatherIcon">⛅</div><div><div class="temp"><span id="temp">--</span>°</div><div class="condition" id="condition">Chargement…</div></div></div>
  <div class="feels" id="feels">Ressenti : --°</div>
  <div class="metrics">
@@ -66,7 +66,7 @@ footer{display:flex;justify-content:space-between;align-items:center;color:var(-
   <div class="bigmetric"><div class="symbol">🌧️</div><small>Probabilité pluie</small><strong id="rainchance">-- %</strong></div>
  </div>
  <div class="air"><div style="color:var(--muted);font-size:12px;margin-bottom:6px">🌿 QUALITÉ DE L'AIR</div><strong id="air">Non disponible</strong><p id="airnote">Indice de qualité de l'air non chargé.</p></div>
- <div class="note">Localisation météo : Clamart (Hauts-de-Seine). Données météo : Open-Meteo.</div>
+ <div class="note">Localisation météo : Antony (Hauts-de-Seine). Données météo : Open-Meteo.</div>
 </section>
 </main>
 <footer><span>Actualisation automatique · météo 15 min · actualités 15 min</span><span id="status">Connexion aux sources…</span></footer>
@@ -74,7 +74,7 @@ footer{display:flex;justify-content:space-between;align-items:center;color:var(-
 <script>
 (function(){
  const $=id=>document.getElementById(id);
- const lat=48.802, lon=2.264;
+ const lat=48.754, lon=2.297;
  const days=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'];
  function tick(){const d=new Date();$('clock').textContent=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});$('date').textContent=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
  tick();setInterval(tick,1000);
