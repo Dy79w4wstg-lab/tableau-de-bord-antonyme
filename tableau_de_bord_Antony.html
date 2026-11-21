@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#101827">
+<title>Mon tableau de bord — Clamart</title>
+<style>
+:root{--bg:#101827;--panel:#192538;--panel2:#1e2d43;--line:#304158;--txt:#f3f6fb;--muted:#a9b8ca;--accent:#8bd5ff;--gold:#f4cf83}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{padding:18px;overflow:hidden}.dashboard{height:100%;display:grid;grid-template-rows:104px 1fr 34px;gap:14px;max-width:1400px;margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px 12px;border-bottom:1px solid var(--line)}
+.brand{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700}.clock{font-size:clamp(42px,7vw,68px);font-weight:650;letter-spacing:-2px;line-height:1}.date{text-align:right;color:var(--muted);font-size:18px;margin-top:6px}
+.main{min-height:0;display:grid;grid-template-columns:1.02fr 1.5fr 1fr;gap:14px}
+.panel{background:linear-gradient(145deg,var(--panel),#152235);border:1px solid var(--line);border-radius:18px;padding:17px;min-height:0;overflow:hidden}
+.panel h2{font-size:15px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin:0 0 15px}
+.current{display:flex;align-items:center;gap:12px}.weather-icon{font-size:60px;line-height:1}.temp{font-size:56px;font-weight:650;letter-spacing:-3px}.condition{font-size:17px;color:var(--muted);margin-top:2px}
+.feels{font-size:14px;color:var(--muted);margin:12px 0 16px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{background:var(--panel2);border-radius:12px;padding:11px}.metric small{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.metric strong{font-size:18px}
+.forecast{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.day{text-align:center;background:var(--panel2);border-radius:10px;padding:9px 3px}.day small{display:block;color:var(--muted);font-size:11px}.day b{display:block;font-size:20px;margin:5px 0}.day span{font-size:13px}
+.news-panel{display:flex;flex-direction:column}.news-list{display:flex;flex-direction:column;gap:0;min-height:0;overflow:hidden}.story{padding:12px 2px;border-bottom:1px solid var(--line)}.story:last-child{border:0}.source{font-size:11px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}.story a{color:var(--txt);text-decoration:none;font-size:17px;line-height:1.28;font-weight:600}.story a:active{color:var(--gold)}.story time{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+.right-top{display:grid;grid-template-columns:1fr 1fr;gap:9px}.bigmetric{background:var(--panel2);border-radius:13px;padding:13px}.bigmetric .symbol{font-size:22px}.bigmetric small{display:block;color:var(--muted);font-size:12px;margin:7px 0 3px}.bigmetric strong{font-size:23px}
+.air{margin-top:12px;padding:13px;background:var(--panel2);border-radius:13px}.air strong{font-size:22px}.air p{font-size:13px;color:var(--muted);line-height:1.4;margin:6px 0 0}
+.note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.4}
+footer{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;padding:0 5px}#status{color:var(--gold)}
+@media(max-width:700px){body{padding:10px}.dashboard{grid-template-rows:80px 1fr 25px;gap:8px}.main{grid-template-columns:1fr 1.25fr;grid-template-rows:1fr 1fr;gap:8px}.weather-panel{grid-column:1;grid-row:1}.news-panel{grid-column:2;grid-row:1 / span 2}.right-panel{grid-column:1;grid-row:2}.panel{padding:11px;border-radius:13px}.panel h2{font-size:11px;margin-bottom:9px}.clock{font-size:42px}.date{font-size:12px}.brand{font-size:10px}.temp{font-size:42px}.weather-icon{font-size:45px}.condition{font-size:13px}.feels{font-size:11px;margin:7px 0}.metric{padding:7px}.metric small,.bigmetric small{font-size:10px}.metric strong{font-size:14px}.forecast{margin-top:9px}.day{padding:6px 1px}.day small{font-size:9px}.day b{font-size:15px}.day span{font-size:10px}.story{padding:9px 1px}.story a{font-size:13px}.source{font-size:9px}.story time{font-size:9px}.right-top{gap:6px}.bigmetric{padding:8px}.bigmetric strong{font-size:18px}.air{padding:9px;margin-top:7px}.air strong{font-size:18px}.air p,.note{font-size:10px}footer{font-size:9px}}
+</style>
+</head>
+<body>
+<div class="dashboard">
+<header>
+ <div><div class="brand">Tableau de bord · Clamart</div><div style="color:var(--muted);font-size:13px;margin-top:7px">Météo · Actualités · Informations</div></div>
+ <div style="text-align:right"><div class="clock" id="clock">--:--</div><div class="date" id="date">Chargement…</div></div>
+</header>
+<main class="main">
+<section class="panel weather-panel">
+ <h2>☀ Météo à Clamart</h2>
+ <div class="current"><div class="weather-icon" id="weatherIcon">⛅</div><div><div class="temp"><span id="temp">--</span>°</div><div class="condition" id="condition">Chargement…</div></div></div>
+ <div class="feels" id="feels">Ressenti : --°</div>
+ <div class="metrics">
+  <div class="metric"><small>💧 Humidité</small><strong id="humidity">-- %</strong></div>
+  <div class="metric"><small>🌬 Vent</small><strong id="wind">-- km/h</strong></div>
+  <div class="metric"><small>🌧 Pluie aujourd'hui</small><strong id="rain">-- mm</strong></div>
+  <div class="metric"><small>☀ UV max</small><strong id="uv">--</strong></div>
+ </div>
+ <div class="forecast" id="forecast">
+  <div class="day"><small>Demain</small><b>⛅</b><span>--° / --°</span></div>
+  <div class="day"><small>J+2</small><b>⛅</b><span>--° / --°</span></div>
+  <div class="day"><small>J+3</small><b>⛅</b><span>--° / --°</span></div>
+  <div class="day"><small>J+4</small><b>⛅</b><span>--° / --°</span></div>
+ </div>
+</section>
+<section class="panel news-panel">
+ <h2>📰 À la une · France & monde</h2>
+ <div class="news-list" id="news">
+  <div class="story"><div class="source">Actualités</div><a>Chargement des derniers titres…</a></div>
+ </div>
+ <div class="note">Sélection de titres issus des flux RSS des médias. Touchez un titre pour lire l'article.</div>
+</section>
+<section class="panel right-panel">
+ <h2>📍 Conditions & repères</h2>
+ <div class="right-top">
+  <div class="bigmetric"><div class="symbol">🌡️</div><small>Température</small><strong id="temp2">--°</strong></div>
+  <div class="bigmetric"><div class="symbol">🌅</div><small>Lever du soleil</small><strong id="sunrise">--:--</strong></div>
+  <div class="bigmetric"><div class="symbol">🌇</div><small>Coucher du soleil</small><strong id="sunset">--:--</strong></div>
+  <div class="bigmetric"><div class="symbol">🌧️</div><small>Probabilité pluie</small><strong id="rainchance">-- %</strong></div>
+ </div>
+ <div class="air"><div style="color:var(--muted);font-size:12px;margin-bottom:6px">🌿 QUALITÉ DE L'AIR</div><strong id="air">Non disponible</strong><p id="airnote">Indice de qualité de l'air non chargé.</p></div>
+ <div class="note">Localisation météo : Clamart (Hauts-de-Seine). Données météo : Open-Meteo.</div>
+</section>
+</main>
+<footer><span>Actualisation automatique · météo 15 min · actualités 15 min</span><span id="status">Connexion aux sources…</span></footer>
+</div>
+<script>
+(function(){
+ const $=id=>document.getElementById(id);
+ const lat=48.802, lon=2.264;
+ const days=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'];
+ function tick(){const d=new Date();$('clock').textContent=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});$('date').textContent=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+ tick();setInterval(tick,1000);
+ function wx(code){if(code===0)return ['☀️','Ciel dégagé'];if(code<=2)return ['🌤️','Peu nuageux'];if(code===3)return ['☁️','Couvert'];if(code<=48)return ['🌫️','Brouillard'];if(code<=57)return ['🌦️','Bruine'];if(code<=67)return ['🌧️','Pluie'];if(code<=77)return ['❄️','Neige'];if(code<=82)return ['🌦️','Averses'];if(code<=86)return ['🌨️','Averses de neige'];return ['⛈️','Orage'];}
+ async function weather(){
+  const url='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,uv_index_max,sunrise,sunset&forecast_days=5&timezone=Europe%2FParis';
+  const r=await fetch(url);if(!r.ok)throw Error('Météo indisponible');const j=await r.json(),c=j.current,d=j.daily;
+  const w=wx(c.weather_code);$('weatherIcon').textContent=w[0];$('temp').textContent=Math.round(c.temperature_2m);$('temp2').textContent=Math.round(c.temperature_2m)+'°';$('condition').textContent=w[1];$('feels').textContent='Ressenti : '+Math.round(c.apparent_temperature)+'°';$('humidity').textContent=c.relative_humidity_2m+' %';$('wind').textContent=Math.round(c.wind_speed_10m)+' km/h';$('rain').textContent=(d.precipitation_sum[0]||0).toFixed(1)+' mm';$('uv').textContent=d.uv_index_max[0].toFixed(1);$('sunrise').textContent=d.sunrise[0].slice(11,16);$('sunset').textContent=d.sunset[0].slice(11,16);$('rainchance').textContent=(d.precipitation_probability_max[0]??'--')+' %';
+  $('forecast').innerHTML='';for(let i=1;i<5;i++){const e=document.createElement('div');e.className='day';const day=new Date(d.time[i]+'T12:00:00');const ww=wx(d.weather_code[i]);e.innerHTML='<small>'+days[day.getDay()]+'</small><b>'+ww[0]+'</b><span>'+Math.round(d.temperature_2m_max[i])+'° / '+Math.round(d.temperature_2m_min[i])+'°</span>';$('forecast').appendChild(e);}
+ }
+ function clean(s){const doc=new DOMParser().parseFromString(s||'','text/html');return (doc.body.textContent||'').replace(/\s+/g,' ').trim();}
+ async function feed(source,url){
+  const r=await fetch('https://proxy.cors.dev/'+url,{credentials:'omit'});if(!r.ok)throw Error(source+' indisponible');const xml=new DOMParser().parseFromString(await r.text(),'application/xml');if(xml.querySelector('parsererror'))throw Error('Flux RSS invalide');return Array.from(xml.querySelectorAll('item')).slice(0,12).map(x=>({source,title:clean(x.querySelector('title')?.textContent),link:x.querySelector('link')?.textContent.trim(),date:x.querySelector('pubDate')?.textContent}));
+ }
+ async function news(){
+  const feeds=[['Franceinfo','https://www.franceinfo.fr/titres.rss'],['France 24','https://www.france24.com/fr/rss']];
+  const results=await Promise.allSettled(feeds.map(f=>feed(f[0],f[1])));let items=[];results.forEach(x=>{if(x.status==='fulfilled')items=items.concat(x.value);});
+  items.sort((a,b)=>(Date.parse(b.date)||0)-(Date.parse(a.date)||0));$('news').innerHTML='';
+  items.slice(0,8).forEach(item=>{const el=document.createElement('div');el.className='story';const src=document.createElement('div');src.className='source';src.textContent=item.source;const a=document.createElement('a');a.textContent=item.title||'Lire l’actualité';if(/^https?:\/\//i.test(item.link||'')){a.href=item.link;a.target='_blank';a.rel='noopener';}const time=document.createElement('time');const dt=new Date(item.date);time.textContent=isNaN(dt)?'':dt.toLocaleString('fr-FR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});el.append(src,a,time);$('news').appendChild(el);});
+  if(!items.length)throw Error('Flux d’actualités indisponibles');
+ }
+ async function air(){try{const u='https://air-quality-api.open-meteo.com/v1/air-quality?latitude='+lat+'&longitude='+lon+'&current=european_aqi,pm2_5&timezone=Europe%2FParis';const r=await fetch(u);const j=await r.json();const a=j.current.european_aqi;$('air').textContent=a+' / 100';$('airnote').textContent=a<=20?'Très bonne qualité de l’air':a<=40?'Bonne qualité de l’air':a<=60?'Qualité moyenne':a<=80?'Qualité dégradée':'Mauvaise qualité de l’air';}catch(e){$('air').textContent='Indisponible';$('airnote').textContent='La source de qualité de l’air ne répond pas actuellement.';}}
+ async function refresh(){let errors=[];try{await weather();}catch(e){errors.push('météo');}try{await news();}catch(e){errors.push('actualités');}await air();$('status').textContent=errors.length?'Source indisponible : '+errors.join(', '):'Données actualisées · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
+ refresh();setInterval(refresh,15*60*1000);
+})();
+</script>
+</body></html>
